@@ -2522,6 +2522,12 @@ aa.NewRoundFrame(aj.UICorner,"Squircle",{
 ImageTransparency=1,
 Size=UDim2.new(1,0,1,0)
 }),
+ab("UIStroke",{
+Thickness=1,
+Color=Color3.fromHex"5a5a5a",
+Transparency=0.4,
+ApplyStrokeMode="Border",
+}),
 aj.UIElements.Main,
 
 
