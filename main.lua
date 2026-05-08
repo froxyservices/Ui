@@ -13090,6 +13090,74 @@ end)
 
 au.TabModule=B
 
+local SearchBar = am("Frame", {
+    BackgroundTransparency = 1,
+    Size = UDim2.new(1, 0, 0, 35),
+    LayoutOrder = 0,
+    Parent = au.UIElements.SideBar.Frame,
+}, {
+    al.NewRoundFrame(au.UICorner - 2, "Squircle", {
+        Size = UDim2.new(1, -6, 1, 0),
+        Position = UDim2.new(0.5, 0, 0.5, 0),
+        AnchorPoint = Vector2.new(0.5, 0.5),
+        ThemeTag = {
+            ImageColor3 = "ElementBackground",
+            ImageTransparency = "ElementBackgroundTransparency",
+        },
+    }),
+    am("UIPadding", {
+        PaddingLeft = UDim.new(0, 8),
+        PaddingRight = UDim.new(0, 8),
+        PaddingTop = UDim.new(0, 6),
+        PaddingBottom = UDim.new(0, 6),
+    }),
+    am("UIListLayout", {
+        FillDirection = "Horizontal",
+        VerticalAlignment = "Center",
+        Padding = UDim.new(0, 6),
+    }),
+    am("ImageLabel", {
+        Size = UDim2.new(0, 16, 0, 16),
+        BackgroundTransparency = 1,
+        Image = al.Icon("search")[1],
+        ImageRectSize = al.Icon("search")[2].ImageRectSize,
+        ImageRectOffset = al.Icon("search")[2].ImageRectPosition,
+        ThemeTag = {
+            ImageColor3 = "Text",
+            ImageTransparency = "TabIconTransparency",
+        },
+    }),
+    am("TextBox", {
+        BackgroundTransparency = 1,
+        Size = UDim2.new(1, -22, 1, 0),
+        TextSize = 14,
+        PlaceholderText = "Search tabs...",
+        TextXAlignment = "Left",
+        TextYAlignment = "Center",
+        ClearTextOnFocus = false,
+        ThemeTag = {
+            TextColor3 = "Text",
+            PlaceholderColor3 = "Text",
+        },
+        Name = "TabSearchBox",
+    }),
+})
+
+local TabSearchBox = SearchBar:FindFirstChild("TabSearchBox")
+
+al.AddSignal(TabSearchBox:GetPropertyChangedSignal("Text"), function()
+    local searchText = TabSearchBox.Text:lower()
+    for tabName, tabObj in pairs(B.Tabs or {}) do
+        if searchText == "" then
+            tabObj.UIElements.Main.Visible = true
+        else
+            local tabDisplayName = tostring(tabName):lower()
+            local isMatch = tabDisplayName:find(searchText, 1, true) ~= nil
+            tabObj.UIElements.Main.Visible = isMatch
+        end
+    end
+end)
+
 function au.Tab(C,F)
 F.Parent=au.UIElements.SideBar.Frame
 return B.New(F,at.GhostUI.UIScale)
