@@ -1501,7 +1501,7 @@ ImageColor3="Notification"
 },
 
 },{
-b.NewRoundFrame(f.UICorner,"Squircle",{
+b.NewRoundFrame(f.UICorner,"Glass-1",{
 Size=UDim2.new(1,0,1,0),
 ThemeTag={
 ImageColor3="NotificationBorder",
@@ -2191,27 +2191,27 @@ Name="Special",
 ImageTransparency=ah=="Secondary"and 0.95 or 1,
 }),
 
-ab.NewRoundFrame(am,"Squircle",{
+ab.NewRoundFrame(am,"Shadow-sm",{
 
 
 
 ImageColor3=Color3.new(0,0,0),
-Size=UDim2.new(1,0,1,0),
-AnchorPoint=Vector2.new(0.5,0),
-Position=UDim2.new(0,0,0,0),
+Size=UDim2.new(1,3,1,3),
+AnchorPoint=Vector2.new(0.5,0.5),
+Position=UDim2.new(0.5,0,0.5,0),
 Name="Shadow",
 
 ImageTransparency=1,
 Visible=not ak,
 }),
 
-ab.NewRoundFrame(am,"Squircle",{
+ab.NewRoundFrame(am,"Glass-1",{
 ThemeTag={
 ImageColor3="White",
 },
 Size=UDim2.new(1,0,1,0),
 
-ImageTransparency=1,
+ImageTransparency=0.6,
 Name="Outline",
 },{
 
@@ -2346,12 +2346,12 @@ ImageColor3="Accent",
 Size=UDim2.new(1,0,1,0),
 ImageTransparency=.97,
 }),
-ab.NewRoundFrame(am,"Squircle",{
+ab.NewRoundFrame(am,"Glass-1",{
 ThemeTag={
 ImageColor3="Outline",
 },
 Size=UDim2.new(1,0,1,0),
-ImageTransparency=1,
+ImageTransparency=.75,
 },{
 
 
@@ -2518,15 +2518,9 @@ ImageTransparency=af.."BackgroundTransparency",
 },
 ZIndex=9999,
 },{
-aa.NewRoundFrame(aj.UICorner,"Squircle",{
-ImageTransparency=1,
+aa.NewRoundFrame(aj.UICorner,"Glass-1",{
+ImageTransparency=0.89,
 Size=UDim2.new(1,0,1,0)
-}),
-ab("UIStroke",{
-Thickness=1,
-Color=Color3.fromHex"5a5a5a",
-Transparency=0.4,
-ApplyStrokeMode="Border",
 }),
 aj.UIElements.Main,
 
@@ -4044,7 +4038,7 @@ ImageColor3="Accent",
 Size=UDim2.new(1,0,1,0),
 ImageTransparency=0.97,
 }),
-ab.NewRoundFrame(aj,"Squircle",{
+ab.NewRoundFrame(aj,"Glass-1.4",{
 ThemeTag={
 ImageColor3="Outline",
 },
@@ -6268,7 +6262,7 @@ AnchorPoint=Vector2.new(0.5,0.5),
 Position=UDim2.new(0.5,0,0.5,0),
 Name="Bar"
 },{
-ab.NewRoundFrame(an,"Squircle",{
+ab.NewRoundFrame(an,"Glass-1.4",{
 Size=UDim2.new(1,0,1,0),
 ImageColor3=Color3.new(1,1,1),
 Name="Highlight",
@@ -6306,11 +6300,11 @@ ac("UICorner",{
 CornerRadius=UDim.new(1,0),
 })
 }),
-ab.NewRoundFrame(an,"Squircle",{
+ab.NewRoundFrame(an,"Glass-1.4",{
 Size=UDim2.new(1,0,1,0),
 ImageColor3=Color3.new(1,1,1),
 Name="Highlight",
-ImageTransparency=1,
+ImageTransparency=0.3,
 }),
 ab.NewRoundFrame(an,"Squircle",{
 Size=UDim2.new(1,0,1,0),
@@ -13089,74 +13083,6 @@ au.CurrentTab=C
 end)
 
 au.TabModule=B
-
-local SearchBar = am("Frame", {
-    BackgroundTransparency = 1,
-    Size = UDim2.new(1, 0, 0, 35),
-    LayoutOrder = 0,
-    Parent = au.UIElements.SideBar.Frame,
-}, {
-    al.NewRoundFrame(au.UICorner - 2, "Squircle", {
-        Size = UDim2.new(1, -6, 1, 0),
-        Position = UDim2.new(0.5, 0, 0.5, 0),
-        AnchorPoint = Vector2.new(0.5, 0.5),
-        ThemeTag = {
-            ImageColor3 = "ElementBackground",
-            ImageTransparency = "ElementBackgroundTransparency",
-        },
-    }),
-    am("UIPadding", {
-        PaddingLeft = UDim.new(0, 8),
-        PaddingRight = UDim.new(0, 8),
-        PaddingTop = UDim.new(0, 6),
-        PaddingBottom = UDim.new(0, 6),
-    }),
-    am("UIListLayout", {
-        FillDirection = "Horizontal",
-        VerticalAlignment = "Center",
-        Padding = UDim.new(0, 6),
-    }),
-    am("ImageLabel", {
-        Size = UDim2.new(0, 16, 0, 16),
-        BackgroundTransparency = 1,
-        Image = al.Icon("search")[1],
-        ImageRectSize = al.Icon("search")[2].ImageRectSize,
-        ImageRectOffset = al.Icon("search")[2].ImageRectPosition,
-        ThemeTag = {
-            ImageColor3 = "Text",
-            ImageTransparency = "TabIconTransparency",
-        },
-    }),
-    am("TextBox", {
-        BackgroundTransparency = 1,
-        Size = UDim2.new(1, -22, 1, 0),
-        TextSize = 14,
-        PlaceholderText = "Search tabs...",
-        TextXAlignment = "Left",
-        TextYAlignment = "Center",
-        ClearTextOnFocus = false,
-        ThemeTag = {
-            TextColor3 = "Text",
-            PlaceholderColor3 = "Text",
-        },
-        Name = "TabSearchBox",
-    }),
-})
-
-local TabSearchBox = SearchBar:FindFirstChild("TabSearchBox")
-
-al.AddSignal(TabSearchBox:GetPropertyChangedSignal("Text"), function()
-    local searchText = TabSearchBox.Text:lower()
-    for tabName, tabObj in pairs(B.Tabs or {}) do
-        if searchText == "" then
-            tabObj.UIElements.Main.Visible = true
-        else
-            local tabDisplayName = tostring(tabName):lower()
-            local isMatch = tabDisplayName:find(searchText, 1, true) ~= nil
-            tabObj.UIElements.Main.Visible = isMatch
-        end
-    end
-end)
 
 function au.Tab(C,F)
 F.Parent=au.UIElements.SideBar.Frame
