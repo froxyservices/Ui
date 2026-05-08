@@ -11601,7 +11601,7 @@ IsToggleDragging=false,
 
 au.UICorner=au.Radius
 
-au.TopBarButtonIconSize=au.TopBarButtonIconSize or(au.Topbar.ButtonsType=="Mac"and 11 or 16)
+au.TopBarButtonIconSize=au.TopBarButtonIconSize or(au.Topbar.ButtonsType=="Mac"and 14 or 20)
 
 au.ElementConfig={
 UIPadding=(au.NewElements and 10 or 13),
